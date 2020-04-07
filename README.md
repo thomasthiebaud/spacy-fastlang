@@ -1,4 +1,4 @@
-# spacy-language
+# spacy_fastlang
 
 ## Install
 
