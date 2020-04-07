@@ -5,7 +5,7 @@
 Assuming you have a working python environment, you can simply install it using
 
 ```
-pip install spacy-fastlang
+pip install spacy_fastlang
 ```
 
 ## Usage
