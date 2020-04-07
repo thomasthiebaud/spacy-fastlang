@@ -1,14 +1,31 @@
 [tool.poetry]
 name = "spacy-fastlang"
 version = "0.1.0"
-description = "Language detection using FastText"
+description = "Language detection using FastText and Spacy"
 authors = ["Thomas Thiebaud <thiebaud.tom@gmail.com>"]
 license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/thomasthiebaud/spacy-fastlang"
+repository = "https://github.com/thomasthiebaud/spacy-fastlang"
+documentation = "https://github.com/thomasthiebaud/spacy-fastlang"
+keywords = ["spacy", "fasttext", "language", "detection"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Software Development"
+]
 
 [tool.poetry.dependencies]
 python = "^3.7"
 spacy = "^2.2.4"
-fasttext = {git = "https://github.com/facebookresearch/fastText.git"}
+fasttext = { git = "https://github.com/facebookresearch/fastText.git" }
 
 [tool.poetry.dev-dependencies]
 black = "^19.10b0"
