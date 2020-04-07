@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "spacy-fastlang"
+version = "0.1.0"
+description = "Language detection using FastText"
+authors = ["Thomas Thiebaud <thiebaud.tom@gmail.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.7"
+spacy = "^2.2.4"
+fasttext = {git = "https://github.com/facebookresearch/fastText.git"}
+
+[tool.poetry.dev-dependencies]
+black = "^19.10b0"
+pytest = "^5.4.1"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
