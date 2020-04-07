@@ -25,7 +25,7 @@ classifiers = [
 [tool.poetry.dependencies]
 python = "^3.7"
 spacy = "^2.2.4"
-fasttext = { git = "https://github.com/facebookresearch/fastText.git" }
+fasttext = "^0.9.1"
 
 [tool.poetry.dev-dependencies]
 black = "^19.10b0"
