@@ -1,0 +1,45 @@
+name: Python package
+
+on: [push]
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.7, 3.8]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v1
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install poetry
+        run: |
+          python -m pip install --upgrade pip
+          pip install poetry
+          poetry config virtualenvs.create false
+      - uses: actions/cache@v1
+        name: Cache poetry
+        with:
+          path: ~/.cache/pypoetry
+          key: poetry-${{ runner.os }}-${{ hashFiles('poetry.lock') }}
+          restore-keys: |
+            poetry-${{ runner.os }}-
+      - name: Install dependencies
+        run: poetry install -vvv
+      - name: Lint with black
+        run: poetry run black --check .
+      - name: Test with pytest
+        run: poetry run pytest -vvv tests
+  release:
+    if: ${{ github.ref == 'master' }}
+    needs: ci
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Release
+        env:
+          POETRY_HTTP_BASIC_PYPI_PASSWORD: ${{ secrets.POETRY_HTTP_BASIC_PYPI_PASSWORD }}
+          POETRY_HTTP_BASIC_PYPI_USERNAME: ${{ secrets.POETRY_HTTP_BASIC_PYPI_USERNAME }}
+        run: poetry publish --build
