@@ -55,3 +55,11 @@ def test_use_custom_model():
 
     assert doc._.language == "en"
     assert doc._.language_score >= 0.8
+
+
+def test_batch_predictions():
+    nlp = spacy.blank("xx")
+    nlp.add_pipe(LanguageDetector())
+    for doc in nlp.pipe([en_text, en_text]):
+        assert doc._.language == "en"
+        assert doc._.language_score >= 0.8
