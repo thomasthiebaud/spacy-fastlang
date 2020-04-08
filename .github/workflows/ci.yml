@@ -19,13 +19,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install poetry
           poetry config virtualenvs.create false
-      - uses: actions/cache@v1
-        name: Cache poetry
-        with:
-          path: ~/.cache/pypoetry
-          key: poetry-${{ runner.os }}-${{ hashFiles('poetry.lock') }}
-          restore-keys: |
-            poetry-${{ runner.os }}-
       - name: Install dependencies
         run: poetry install -vvv
       - name: Lint with black
