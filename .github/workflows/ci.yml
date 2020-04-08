@@ -1,6 +1,6 @@
 name: Python package
 
-on: [push, pull_request]
+on: push
 
 jobs:
   ci:
@@ -26,11 +26,11 @@ jobs:
       - name: Test with pytest
         run: poetry run pytest -vvv tests
   release:
-    if: ${{ github.ref == 'master' }}
+    if: ${{ github.ref == 'refs/heads/master' }}
     needs: ci
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v2
       - name: Release
         env:
           POETRY_HTTP_BASIC_PYPI_PASSWORD: ${{ secrets.POETRY_HTTP_BASIC_PYPI_PASSWORD }}
