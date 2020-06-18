@@ -25,6 +25,8 @@ doc._.language == "..."
 doc._.language_score >= ...
 ```
 
+## Options
+
 [Check the tests](./tests/test_spacy_fastlang.py) to see more examples and available options
 
 ## License
