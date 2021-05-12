@@ -1,7 +1,7 @@
 import spacy
 import os
 
-from spacy_fastlang import LanguageDetector
+import spacy_fastlang
 
 en_text = "Life is like a box of chocolates. You never know what you're gonna get."
 poor_quality_text = "Hi Mademoiselle"
@@ -9,7 +9,7 @@ poor_quality_text = "Hi Mademoiselle"
 
 def test_detect_doc_language():
     nlp = spacy.blank("xx")
-    nlp.add_pipe(LanguageDetector())
+    nlp.add_pipe("language_detector")
     doc = nlp(en_text)
 
     assert doc._.language == "en"
@@ -18,13 +18,13 @@ def test_detect_doc_language():
 
 def test_use_fallback_if_confidence_is_low():
     nlp_without_fallback = spacy.blank("xx")
-    nlp_without_fallback.add_pipe(LanguageDetector())
+    nlp_without_fallback.add_pipe("language_detector")
     doc = nlp_without_fallback(poor_quality_text)
 
     assert doc._.language_score < 0.5
 
     nlp_with_fallback = spacy.blank("xx")
-    nlp_with_fallback.add_pipe(LanguageDetector(threshold=0.5))
+    nlp_with_fallback.add_pipe("language_detector", config={"threshold": 0.5})
     doc = nlp_with_fallback(poor_quality_text)
 
     assert doc._.language == "xx"
@@ -33,7 +33,7 @@ def test_use_fallback_if_confidence_is_low():
 
 def test_use_fallback_value_if_language_not_supported():
     nlp = spacy.blank("xx")
-    nlp.add_pipe(LanguageDetector(supported_languages=["fr"]))
+    nlp.add_pipe("language_detector", config={"supported_languages": ["fr"]})
     doc = nlp(en_text)
 
     assert doc._.language == "xx"
@@ -42,7 +42,9 @@ def test_use_fallback_value_if_language_not_supported():
 
 def test_use_custom_fallback():
     nlp = spacy.blank("xx")
-    nlp.add_pipe(LanguageDetector(threshold=0.99, default_language="fr"))
+    nlp.add_pipe(
+        "language_detector", config={"threshold": 0.99, "default_language": "fr"}
+    )
     doc = nlp(en_text)
 
     assert doc._.language == "fr"
@@ -52,11 +54,12 @@ def test_use_custom_fallback():
 def test_use_custom_model():
     nlp = spacy.blank("xx")
     nlp.add_pipe(
-        LanguageDetector(
-            model_path=os.path.realpath(
+        "language_detector",
+        config={
+            "model_path": os.path.realpath(
                 os.path.join(__file__, "..", "..", "spacy_fastlang", "lid.176.ftz")
             )
-        )
+        },
     )
     doc = nlp(en_text)
 
@@ -66,7 +69,7 @@ def test_use_custom_model():
 
 def test_batch_predictions():
     nlp = spacy.blank("xx")
-    nlp.add_pipe(LanguageDetector())
+    nlp.add_pipe("language_detector")
     for doc in nlp.pipe([en_text, en_text]):
         assert doc._.language == "en"
         assert doc._.language_score >= 0.8

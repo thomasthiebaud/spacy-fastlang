@@ -10,15 +10,15 @@ pip install spacy_fastlang
 
 ## Usage
 
-The library exports a pipeline component called `LanguageDetector` that will set two spacy extensions
+The library exports a pipeline component called `language_detector` that will set two spacy extensions
 
 - doc.\_.language = ISO code of the detected language or `xx` as a fallback
 - doc.\_.language_score = confidence
 
 ```
-from spacy_fastlang import LanguageDetector
+import spacy_fastlang
 nlp = spacy.load("...")
-nlp.add_pipe(LanguageDetector())
+nlp.add_pipe("language_detector")
 doc = nlp(en_text)
 
 doc._.language == "..."

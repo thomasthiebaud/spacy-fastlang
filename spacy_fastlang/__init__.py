@@ -2,11 +2,39 @@ import os
 import fasttext
 from spacy.tokens import Doc
 from spacy import util
+from spacy.language import Language
+
+
+@Language.factory(
+    "language_detector",
+    default_config={
+        "default_language": "xx",
+        "supported_languages": None,
+        "threshold": 0,
+        "model_path": os.path.realpath(os.path.join(__file__, "..", "lid.176.ftz")),
+    },
+)
+def make_language_detector(
+    nlp: Language,
+    name: str,
+    default_language,
+    supported_languages,
+    threshold,
+    model_path,
+):
+    return LanguageDetector(
+        name,
+        default_language=default_language,
+        supported_languages=supported_languages,
+        threshold=threshold,
+        model_path=model_path,
+    )
 
 
 class LanguageDetector(object):
     def __init__(
         self,
+        name="language_detector",
         default_language="xx",
         supported_languages=None,
         threshold=0,
