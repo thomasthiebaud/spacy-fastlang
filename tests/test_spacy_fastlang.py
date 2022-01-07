@@ -4,7 +4,7 @@ import os
 import spacy_fastlang
 
 en_text = "Life is like a box of chocolates. You never know what you're gonna get."
-poor_quality_text = "Hi Mademoiselle"
+poor_quality_text = "Hi Mademoiselle \n"
 
 
 def test_detect_doc_language():
