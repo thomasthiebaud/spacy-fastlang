@@ -49,7 +49,7 @@ class LanguageDetector(object):
         self.threshold = threshold
 
     def __call__(self, doc: Doc):
-        labels, confidences = self.model.predict(doc.text)
+        labels, confidences = self.model.predict(doc.text.replace("\n", " "))
         label = labels[0]
         confidence = confidences[0]
 
@@ -62,7 +62,7 @@ class LanguageDetector(object):
 
     def pipe(self, stream, batch_size=128):
         for docs in util.minibatch(stream, size=batch_size):
-            labels, confidences = self.model.predict([doc.text for doc in docs])
+            labels, confidences = self.model.predict([doc.text.replace("\n", " ") for doc in docs])
             for doc, label, confidence in zip(docs, labels, confidences):
                 language, language_score = self._extract_language(
                     label[0], confidence[0]
