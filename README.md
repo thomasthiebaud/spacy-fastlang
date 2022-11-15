@@ -16,7 +16,7 @@ The library exports a pipeline component called `language_detector` that will se
 - doc.\_.language_score = confidence
 
 ```
-import spacy_fastlang
+import spacy_fastlang # noqa: F401 # pylint: disable=unused-import
 nlp = spacy.load("...")
 nlp.add_pipe("language_detector")
 doc = nlp(en_text)
