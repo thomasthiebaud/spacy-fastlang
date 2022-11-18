@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "spacy_fastlang"
-version = "1.0.1"
+version = "1.0.2"
 description = "Language detection using FastText and Spacy"
 authors = ["Thomas Thiebaud <thiebaud.tom@gmail.com>"]
 license = "MIT"
