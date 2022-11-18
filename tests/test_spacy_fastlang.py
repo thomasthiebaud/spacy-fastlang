@@ -1,7 +1,7 @@
 import spacy
 import os
 
-import spacy_fastlang # noqa: F401 # pylint: disable=unused-import
+import spacy_fastlang  # noqa: F401 # pylint: disable=unused-import
 
 en_text = "Life is like a box of chocolates. You never know what you're gonna get."
 poor_quality_text = "Hi Mademoiselle \n"
